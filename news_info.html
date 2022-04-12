@@ -1,0 +1,64 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<title>jquery.awesomeCloud Demo</title>
+		<meta name="description" content="A Word Cloud plugin for jQuery.">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+	</head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+	<script>
+		$.get('test.csv', function(data) {
+
+			
+			var html = '<table>';
+			
+			// split into lines
+			var rows = data.split("\n");
+			var rows_ = rows.filter(function(itm, i, a) {
+				return i == rows.indexOf(itm);
+			});
+			// parse lines
+			rows_.forEach( function getvalues(ourrow) {
+			
+			// start a table row
+			
+			
+			// split line into columns
+			var columns = ourrow.split(",");
+			let urlParams = new URLSearchParams(window.location.search);
+			
+			if (columns[0] == urlParams.get('q')) {
+				html += "<tr>";
+			//html += "<td>" + columns[0] + "</td>";
+			html += "<td>" +"<a href='"+columns[2]+"' >"+ columns[1] + "</a></td>";
+			//html += "<a herf =<td>" + columns[2] + "</td>";
+			
+			// close row
+			html += "</tr>";
+			}
+			})
+			// close table
+			html += "</table>";
+			
+			// insert into div
+			$('#container').append(html);
+			
+			});
+
+	</script>
+
+	<body>
+
+		<header>
+			<h1>相關新聞</h1>
+			<h2> </h2>
+		</header>
+		<div id="container"></div>
+
+		
+	</body>
+</html>
